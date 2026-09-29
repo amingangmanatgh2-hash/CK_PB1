@@ -23,7 +23,7 @@ Unicode true
 !define APP_REG_KEY "Software\CK_PB1"
 
 Name "${APP_NAME} ${APP_VERSION}"
-OutFile "../dist/CK_PB1_Setup.exe"
+OutFile "dist/CK_PB1_Setup.exe"
 InstallDir "$PROGRAMFILES64\CK_PB1"
 InstallDirRegKey HKLM "${APP_REG_KEY}" "InstallDir"
 RequestExecutionLevel admin
