@@ -1,0 +1,125 @@
+name: Build CK_PB1
+
+on:
+  push:
+    branches: ['arena/**', 'Main']
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build client, launcher and installer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17 (Temurin)
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install NSIS
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq nsis
+          makensis -VERSION
+
+      - name: Build CK_PB1 Client (fabric mod) and Launcher
+        run: |
+          chmod +x gradlew
+          ./gradlew --no-daemon :client:build :launcher:jar
+          echo "--- client artifacts ---"
+          ls -la client/build/libs/
+          echo "--- launcher artifacts ---"
+          ls -la launcher/build/libs/
+
+      - name: Launcher self-test (Mojang / Fabric / GitHub network checks)
+        run: |
+          java -jar launcher/build/libs/CK_PB1-Launcher-1.0.0.jar --selftest
+
+      - name: Build CK_PB1_Setup.exe (installer)
+        run: |
+          bash installer/build.sh
+          ls -la installer/dist/
+
+      - name: Collect build log & dist
+        if: always()
+        run: |
+          mkdir -p buildout
+          {
+            echo "CK_PB1 CI build report"
+            echo "commit: $GITHUB_SHA"
+            echo "date: $(date -u)"
+            echo
+            echo "== gradle artifacts =="
+            ls -la client/build/libs/ 2>/dev/null || true
+            ls -la launcher/build/libs/ 2>/dev/null || true
+            echo
+            echo "== installer dist =="
+            ls -la installer/dist/ 2>/dev/null || true
+          } > buildout/report.txt
+          cp installer/dist/* buildout/ 2>/dev/null || true
+
+      - name: Publish build artifacts to build branch
+        if: always()
+        run: |
+          set -e
+          REPO="$GITHUB_REPOSITORY"
+          BRANCH="build/arena"
+          cd buildout
+          git init -q
+          git config user.name "CK_PB1 CI"
+          git config user.email "ci@ckpb1.local"
+          git checkout -q -b "$BRANCH"
+          git add -A
+          git commit -qm "CK_PB1 build artifacts ($GITHUB_SHA)"
+          git push -qf "https://x-access-token:${GITHUB_TOKEN}@github.com/${REPO}.git" "$BRANCH"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifacts (workflow record)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: CK_PB1-build
+          path: buildout/
+
+  release:
+    name: Publish GitHub Release (tag builds)
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: CK_PB1-build
+          path: buildout
+
+      - name: Assemble release files
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          mkdir -p release
+          cp buildout/CK_PB1_Setup.exe "release/CK_PB1-v${VERSION}-Setup.exe"
+          cp buildout/CK_PB1-Launcher-*.jar release/ 2>/dev/null || true
+          cp buildout/CK_PB1-Client-*.jar release/ 2>/dev/null || true
+          cp README.md CHANGELOG.md release/
+          ls -la release/
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          gh release create "$TAG" \
+            --title "CK_PB1 ${TAG}" \
+            --notes-file "releases/${TAG}.md" \
+            release/*

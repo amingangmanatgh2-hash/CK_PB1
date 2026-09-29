@@ -1,0 +1,29 @@
+// CK_PB1 Launcher - self-contained fat jar (no external runtime dependencies)
+
+version = project.ckpb1_version
+base { archivesName = 'CK_PB1-Launcher' }
+
+sourceSets {
+    main {
+        java {
+            // launcher sources + shared CK_PB1 library
+            srcDirs = ['src/main/java', '../source/src/main/java']
+        }
+    }
+}
+
+jar {
+    archiveBaseName = 'CK_PB1-Launcher'
+    manifest {
+        attributes(
+            'Main-Class': 'ckpb1.launcher.LauncherMain',
+            'Implementation-Title': 'CK_PB1 Launcher',
+            'Implementation-Version': project.version,
+        )
+    }
+}
+
+// No third-party dependencies: JSON parsing uses the shared ckpb1.common.json.MiniJson.
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+}
