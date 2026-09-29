@@ -3,7 +3,7 @@
 
 Unicode true
 Name "CK_PB1"
-OutFile "build\CK_PB1.exe"
+OutFile "build/CK_PB1.exe"
 RequestExecutionLevel user
 SetCompressor /FINAL lzma
 Icon "appicon.ico"

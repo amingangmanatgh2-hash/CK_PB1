@@ -23,7 +23,7 @@ Unicode true
 !define APP_REG_KEY "Software\CK_PB1"
 
 Name "${APP_NAME} ${APP_VERSION}"
-OutFile "..\dist\CK_PB1_Setup.exe"
+OutFile "../dist/CK_PB1_Setup.exe"
 InstallDir "$PROGRAMFILES64\CK_PB1"
 InstallDirRegKey HKLM "${APP_REG_KEY}" "InstallDir"
 RequestExecutionLevel admin
@@ -43,7 +43,7 @@ Var BundledJreSelected
 !define MUI_FINISHPAGE_LINK_LOCATION "${APP_URL}"
 
 !insertmacro MUI_PAGE_WELCOME
-!insertmacro MUI_PAGE_LICENSE "..\LICENSE"
+!insertmacro MUI_PAGE_LICENSE "../LICENSE"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
 ; dependency check runs right before the files are installed
@@ -77,16 +77,16 @@ Section "!CK_PB1 Launcher (required)" SEC_CORE
   nsExec::ExecToLog 'taskkill /IM CK_PB1.exe /F'
   Sleep 500
 
-  File "build\CK_PB1.exe"
-  File "..\launcher\build\libs\CK_PB1-Launcher-${APP_VERSION}.jar"
-  File "..\client\build\libs\CK_PB1-Client-${APP_VERSION}+mc1.20.1.jar"
-  File "..\README.md"
-  File "..\CHANGELOG.md"
-  File "..\LICENSE"
+  File "build/CK_PB1.exe"
+  File "../launcher/build/libs/CK_PB1-Launcher-${APP_VERSION}.jar"
+  File "../client/build/libs/CK_PB1-Client-${APP_VERSION}+mc1.20.1.jar"
+  File "../README.md"
+  File "../CHANGELOG.md"
+  File "../LICENSE"
 
   ; default configs shipped with the installer
   SetOutPath "$INSTDIR\configs"
-  File /nonfatal "..\configs\default\*.json"
+  File /nonfatal "../configs/default/*.json"
 
   ; write uninstaller + registry
   WriteUninstaller "$INSTDIR\Uninstall.exe"
@@ -102,7 +102,7 @@ SectionEnd
 
 Section "Bundled Java 17 Runtime (recommended)" SEC_JRE
   SetOutPath "$INSTDIR"
-  File /r "build\jre"
+  File /r "build/jre"
   StrCpy $BundledJreSelected "1"
 SectionEnd
 
