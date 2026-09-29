@@ -42,13 +42,12 @@ Var BundledJreSelected
 !define MUI_FINISHPAGE_LINK "GitHub - ${APP_NAME}"
 !define MUI_FINISHPAGE_LINK_LOCATION "${APP_URL}"
 
-; dependency check runs right before the files are installed
-!define MUI_PAGE_CUSTOMFUNCTION_PRE CheckDependencies
-
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_LICENSE "..\LICENSE"
 !insertmacro MUI_PAGE_COMPONENTS
 !insertmacro MUI_PAGE_DIRECTORY
+; dependency check runs right before the files are installed
+!define MUI_PAGE_CUSTOMFUNCTION_PRE CheckDependencies
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 

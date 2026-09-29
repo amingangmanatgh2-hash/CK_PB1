@@ -46,7 +46,8 @@ jobs:
 
       - name: Build CK_PB1_Setup.exe (installer)
         run: |
-          bash installer/build.sh
+          set -o pipefail
+          bash installer/build.sh 2>&1 | tee installer-build.log
           ls -la installer/dist/
 
       - name: Collect build log & dist
@@ -69,11 +70,15 @@ jobs:
             echo "== launcher self-test =="
             cat selftest.log 2>/dev/null || echo "(no selftest log)"
             echo
+            echo "== installer build log =="
+            tail -n 120 installer-build.log 2>/dev/null || echo "(no installer log)"
+            echo
             echo "== last 400 lines of gradle log =="
             tail -n 400 gradle-build.log 2>/dev/null || echo "(no gradle log)"
           } > buildout/report.txt
           cp gradle-build.log buildout/ 2>/dev/null || true
           cp selftest.log buildout/ 2>/dev/null || true
+          cp installer-build.log buildout/ 2>/dev/null || true
           cp installer/dist/* buildout/ 2>/dev/null || true
 
       - name: Publish build artifacts to build branch
