@@ -75,8 +75,9 @@ public final class MinecraftInstall {
     /** All versions from the official manifest (id, type, url). */
     public List<String[]> fetchVersions() throws IOException, InterruptedException {
         String body = get(MANIFEST_URL);
+        Map<String, Object> root = MiniJson.obj(MiniJson.parse(body));
         List<String[]> out = new ArrayList<>();
-        for (Object o : MiniJson.arr(MiniJson.parse(body))) {
+        for (Object o : MiniJson.arr(root.get("versions"))) {
             Map<String, Object> v = MiniJson.obj(o);
             out.add(new String[]{
                     MiniJson.str(v.get("id"), ""),
