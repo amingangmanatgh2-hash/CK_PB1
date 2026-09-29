@@ -80,6 +80,8 @@ jobs:
           cp selftest.log buildout/ 2>/dev/null || true
           cp installer-build.log buildout/ 2>/dev/null || true
           cp installer/dist/* buildout/ 2>/dev/null || true
+          cp client/build/libs/CK_PB1-Client-*.jar buildout/ 2>/dev/null || true
+          cp launcher/build/libs/CK_PB1-Launcher-*.jar buildout/ 2>/dev/null || true
 
       - name: Publish build artifacts to build branch
         if: always()
