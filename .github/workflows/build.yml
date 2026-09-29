@@ -32,7 +32,8 @@ jobs:
       - name: Build CK_PB1 Client (fabric mod) and Launcher
         run: |
           chmod +x gradlew
-          ./gradlew --no-daemon :client:build :launcher:jar
+          set -o pipefail
+          ./gradlew --no-daemon :client:build :launcher:jar 2>&1 | tee gradle-build.log
           echo "--- client artifacts ---"
           ls -la client/build/libs/
           echo "--- launcher artifacts ---"
@@ -62,7 +63,11 @@ jobs:
             echo
             echo "== installer dist =="
             ls -la installer/dist/ 2>/dev/null || true
+            echo
+            echo "== last 400 lines of gradle log =="
+            tail -n 400 gradle-build.log 2>/dev/null || echo "(no gradle log)"
           } > buildout/report.txt
+          cp gradle-build.log buildout/ 2>/dev/null || true
           cp installer/dist/* buildout/ 2>/dev/null || true
 
       - name: Publish build artifacts to build branch
