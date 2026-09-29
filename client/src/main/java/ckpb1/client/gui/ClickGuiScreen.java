@@ -42,7 +42,7 @@ public final class ClickGuiScreen extends Screen {
     // drag state
     private Panel draggingPanel;
     private int dragOffX, dragOffY;
-    private NumberSetting<?> draggingSlider;
+    private NumberSetting draggingSlider;
     private Module draggingSliderModule;
 
     // keybind capture

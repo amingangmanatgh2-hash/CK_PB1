@@ -49,7 +49,8 @@ public final class AutoTool extends Module {
             float currentSpeed = mc.player.getMainHandStack().getMiningSpeedMultiplier(state);
             if (bestSpeed > currentSpeed) {
                 mc.player.getInventory().selectedSlot = bestSlot;
-                mc.interactionManager.syncSelectedSlot();
+                mc.player.networkHandler.sendPacket(
+                        new net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket(bestSlot));
             }
         }
     }

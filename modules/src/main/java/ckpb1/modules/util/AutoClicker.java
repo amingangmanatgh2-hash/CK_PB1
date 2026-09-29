@@ -43,7 +43,8 @@ public final class AutoClicker extends Module {
             return;
         }
         if (requireTarget.isOn()) {
-            if (!(mc.crosshairTarget instanceof Entity hitEntity) || !(hitEntity instanceof net.minecraft.entity.LivingEntity)) {
+            if (!(mc.crosshairTarget instanceof net.minecraft.util.hit.EntityHitResult hit)
+                    || !(hit.getEntity() instanceof net.minecraft.entity.LivingEntity)) {
                 return;
             }
         }
@@ -56,8 +57,8 @@ public final class AutoClicker extends Module {
         double cps = ThreadLocalRandom.current().nextDouble(lo, hi + 0.01);
         nextClickAt = now + (long) (1000.0 / cps);
         mc.player.swingHand(Hand.MAIN_HAND);
-        if (mc.crosshairTarget instanceof Entity hitEntity) {
-            mc.interactionManager.attackEntity(mc.player, hitEntity);
+        if (mc.crosshairTarget instanceof net.minecraft.util.hit.EntityHitResult hit) {
+            mc.interactionManager.attackEntity(mc.player, hit.getEntity());
         }
     }
 }

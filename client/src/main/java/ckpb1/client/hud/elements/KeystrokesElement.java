@@ -5,7 +5,7 @@ import ckpb1.client.hud.HudElement;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.math.ColorHelper;
+import net.minecraft.util.math.ColorHelper;
 
 /** Keystrokes HUD element (WASD, LMB/RMB with CPS, space bar). */
 public final class KeystrokesElement extends HudElement {

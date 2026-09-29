@@ -202,9 +202,9 @@ public final class BedDestroyerV1 extends Module {
     private boolean hasLineOfSight(MinecraftClient mc, BlockPos bed) {
         Vec3d eye = mc.player.getEyePos();
         Vec3d center = Vec3d.ofCenter(bed);
-        var hit = mc.world.raycast(new net.minecraft.util.math.RaycastContext(eye, center,
-                net.minecraft.util.math.RaycastContext.ShapeType.OUTLINE,
-                net.minecraft.util.math.RaycastContext.FluidHandling.NONE, mc.player));
+        var hit = mc.world.raycast(new net.minecraft.world.RaycastContext(eye, center,
+                net.minecraft.world.RaycastContext.ShapeType.OUTLINE,
+                net.minecraft.world.RaycastContext.FluidHandling.NONE, mc.player));
         return hit.getType() == HitResult.Type.MISS
                 || (hit.getType() == HitResult.Type.BLOCK
                 && ((BlockHitResult) hit).getBlockPos().equals(bed)

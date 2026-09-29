@@ -4,7 +4,7 @@ import ckpb1.client.core.Category;
 import ckpb1.client.core.Module;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.ColorHelper;
+import net.minecraft.util.math.ColorHelper;
 
 /**
  * A draggable HUD element. HUD elements are modules (Category.HUD) so they

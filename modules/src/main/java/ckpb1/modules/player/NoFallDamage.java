@@ -18,7 +18,7 @@ public final class NoFallDamage extends Module {
     }
 
     /** Called from the LivingEntity mixin. */
-    public static boolean shouldCancelFall(LivingEntity entity) {
+    public static boolean shouldCancelFall(net.minecraft.entity.Entity entity) {
         MinecraftClient mc = MinecraftClient.getInstance();
         if (mc == null || mc.player == null) {
             return false;

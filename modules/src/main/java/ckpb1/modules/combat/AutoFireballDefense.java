@@ -70,7 +70,7 @@ public final class AutoFireballDefense extends Module {
         if (rotate.isOn()) {
             RotationController.lookAt(best.getPos(), 60f);
         }
-        nextAttemptAt = now + (long) cooldown.get();
+        nextAttemptAt = now + cooldown.get().longValue();
         mc.interactionManager.attackEntity(mc.player, best);
         mc.player.swingHand(Hand.MAIN_HAND);
     }

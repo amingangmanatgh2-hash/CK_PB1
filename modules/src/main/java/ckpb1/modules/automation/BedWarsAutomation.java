@@ -138,7 +138,7 @@ public final class BedWarsAutomation extends Module {
                 if (ra instanceof ckpb1.modules.world.ResourceAssistant assistant) {
                     assistant.resources.clear();
                     assistant.resources.add(resourceBlockId());
-                    assistant.autoWalk.setOn(true);
+                    assistant.autoWalk.set(true);
                     assistant.setEnabled(true, false);
                 }
             }

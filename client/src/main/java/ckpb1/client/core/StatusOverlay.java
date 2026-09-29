@@ -2,7 +2,7 @@ package ckpb1.client.core;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.ColorHelper;
+import net.minecraft.util.math.ColorHelper;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

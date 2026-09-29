@@ -2,7 +2,7 @@ package ckpb1.client;
 
 import ckpb1.client.command.CommandProcessor;
 import ckpb1.client.core.CKLog;
-import ckpb1.client.core.ClientEvents;
+import ckpb1.client.core.event.ClientEvents;
 import ckpb1.client.core.CombatState;
 import ckpb1.client.core.CpsTracker;
 import ckpb1.client.core.ModuleManager;

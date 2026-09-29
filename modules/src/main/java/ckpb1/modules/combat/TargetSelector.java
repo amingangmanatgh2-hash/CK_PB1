@@ -56,7 +56,8 @@ public final class TargetSelector extends Module {
             }
             boolean isPlayer = entity instanceof PlayerEntity;
             if (isPlayer && playersOnly.isOn()) {
-                if (!specificPlayers.isEmpty() && !specificPlayers.containsIgnoreCase(player.getGameProfile().getName())) {
+                String playerName = ((PlayerEntity) entity).getGameProfile().getName();
+                if (!specificPlayers.isEmpty() && !specificPlayers.containsIgnoreCase(playerName)) {
                     continue;
                 }
             } else if (!isPlayer) {

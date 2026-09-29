@@ -79,7 +79,7 @@ public final class CombatState {
                 continue;
             }
             if (mc.world != null) {
-                Entity entity = mc.world.getEntity(e.getKey());
+                Entity entity = (Entity) mc.world.getEntityLookup().get(e.getKey());
                 if (entity == null || !entity.isAlive()) {
                     it.remove();
                     Stats.onKill();

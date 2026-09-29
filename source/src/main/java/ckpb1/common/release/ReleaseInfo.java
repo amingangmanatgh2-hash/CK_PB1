@@ -9,16 +9,16 @@ import java.util.Map;
 /** Model of a GitHub release of CK_PB1. */
 public final class ReleaseInfo {
 
-    public final String tagName;
-    public final String name;
-    public final String body;
-    public final String publishedAt;
-    public final String htmlUrl;
-    public final boolean prerelease;
+    public String tagName;
+    public String name;
+    public String body;
+    public String publishedAt;
+    public String htmlUrl;
+    public boolean prerelease;
     public final List<Asset> assets = new ArrayList<>();
 
     public static final class Asset {
-        public final String name;
+        public String name;
         public final String downloadUrl;
         public final long size;
 
