@@ -1,7 +1,6 @@
 package ckpb1.client.gui;
 
 import ckpb1.client.CKPB1Client;
-import ckpb1.client.CKPB1Client;
 import ckpb1.client.hud.HudElement;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -84,7 +83,7 @@ public final class HudEditorScreen extends Screen {
                 }
                 // re-flow defaults: rough grid so elements don't overlap
                 int y = 20;
-                for (HudElement e : CK_PB1Client.hud().elements()) {
+                for (HudElement e : CKPB1Client.hud().elements()) {
                     e.setPosition(20, y);
                     y += e.getHeight() + 18;
                 }

@@ -19,10 +19,11 @@ import java.awt.event.MouseEvent;
 public final class DownloadsPanel extends JPanel {
 
     private final App app;
-    private final JTable table = new JTable(app.downloads.model());
+    private final JTable table;
 
     public DownloadsPanel(App app) {
         this.app = app;
+        this.table = new JTable(app.downloads.model());
         setLayout(new BorderLayout(12, 12));
         setBackground(Ui.BG);
         setBorder(BorderFactory.createEmptyBorder(12, 14, 12, 14));
