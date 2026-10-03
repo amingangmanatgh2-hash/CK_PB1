@@ -1,0 +1,13 @@
+== CK_PB1 installer build (v1.1.0) ==
+-- generating icons
+CK_PB1 icons written: appicon.ico + client icon.png (1695 bytes)
+-- creating bundled Java runtime (jlink)
+-- building CK_PB1.exe launcher stub
+-- building CK_PB1_Setup.exe
+-- preparing release asset name
+== installer artifacts ==
+total 60688
+drwxr-xr-x 2 runner runner     4096 Oct  3 19:54 .
+drwxr-xr-x 4 runner runner     4096 Oct  3 19:54 ..
+-rw-r--r-- 1 runner runner 31066803 Oct  3 19:54 CK_PB1-v1.1.0-Setup.exe
+-rw-r--r-- 1 runner runner 31066803 Oct  3 19:54 CK_PB1_Setup.exe

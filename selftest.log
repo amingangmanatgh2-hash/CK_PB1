@@ -1,0 +1,9 @@
+== CK_PB1 Launcher self-test ==
+  [PASS] MiniJson round-trip - {"a":[1,2.5,"x",true,null],"b":"سلام"}
+  [PASS] SemVer comparisons - 1.2.3
+  [PASS] Settings save/load - /tmp/ckpb1-test3826171880459249426
+  [PASS] Java locator finds a JVM - Java 25.0.4.1  -  /usr/lib/jvm/temurin-25-jdk-amd64/bin/java
+  [PASS] Mojang version manifest - 917 versions, 1.20.1=true
+  [PASS] Fabric meta - loader 0.19.5, 8 libraries, main net.fabricmc.loader.impl.launch.knot.KnotClient
+  [PASS] GitHub releases - v1.0.0 (5 assets)
+== ALL TESTS PASSED ==

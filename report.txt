@@ -1,0 +1,93 @@
+CK_PB1 CI build report
+commit: 2f6ba073853dae1bf4a90f026b4e1e4b928ff5c1
+date: Sat Oct  3 19:54:32 UTC 2026
+
+== gradle artifacts ==
+total 236
+drwxr-xr-x  2 runner runner   4096 Oct  3 19:53 .
+drwxr-xr-x 10 runner runner   4096 Oct  3 19:53 ..
+-rw-r--r--  1 runner runner 230161 Oct  3 19:53 CK_PB1-Client-1.1.0+mc1.20.1.jar
+total 120
+drwxr-xr-x 2 runner runner   4096 Oct  3 19:53 .
+drwxr-xr-x 6 runner runner   4096 Oct  3 19:53 ..
+-rw-r--r-- 1 runner runner 111689 Oct  3 19:53 CK_PB1-Launcher-1.1.0.jar
+
+== installer dist ==
+total 60688
+drwxr-xr-x 2 runner runner     4096 Oct  3 19:54 .
+drwxr-xr-x 4 runner runner     4096 Oct  3 19:54 ..
+-rw-r--r-- 1 runner runner 31066803 Oct  3 19:54 CK_PB1-v1.1.0-Setup.exe
+-rw-r--r-- 1 runner runner 31066803 Oct  3 19:54 CK_PB1_Setup.exe
+
+
+== launcher self-test ==
+== CK_PB1 Launcher self-test ==
+  [PASS] MiniJson round-trip - {"a":[1,2.5,"x",true,null],"b":"سلام"}
+  [PASS] SemVer comparisons - 1.2.3
+  [PASS] Settings save/load - /tmp/ckpb1-test3826171880459249426
+  [PASS] Java locator finds a JVM - Java 25.0.4.1  -  /usr/lib/jvm/temurin-25-jdk-amd64/bin/java
+  [PASS] Mojang version manifest - 917 versions, 1.20.1=true
+  [PASS] Fabric meta - loader 0.19.5, 8 libraries, main net.fabricmc.loader.impl.launch.knot.KnotClient
+  [PASS] GitHub releases - v1.0.0 (5 assets)
+== ALL TESTS PASSED ==
+
+== installer build log ==
+== CK_PB1 installer build (v1.1.0) ==
+-- generating icons
+CK_PB1 icons written: appicon.ico + client icon.png (1695 bytes)
+-- creating bundled Java runtime (jlink)
+-- building CK_PB1.exe launcher stub
+-- building CK_PB1_Setup.exe
+-- preparing release asset name
+== installer artifacts ==
+total 60688
+drwxr-xr-x 2 runner runner     4096 Oct  3 19:54 .
+drwxr-xr-x 4 runner runner     4096 Oct  3 19:54 ..
+-rw-r--r-- 1 runner runner 31066803 Oct  3 19:54 CK_PB1-v1.1.0-Setup.exe
+-rw-r--r-- 1 runner runner 31066803 Oct  3 19:54 CK_PB1_Setup.exe
+
+== last 400 lines of gradle log ==
+Downloading https://services.gradle.org/distributions/gradle-8.10.2-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+
+Welcome to Gradle 8.10.2!
+
+Here are the highlights of this release:
+ - Support for Java 23
+ - Faster configuration cache
+ - Better configuration cache reports
+
+For more details see https://docs.gradle.org/8.10.2/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :client
+Fabric Loom: 1.7.4
+
+> Task :launcher:compileJava
+> Task :launcher:processResources NO-SOURCE
+> Task :launcher:classes
+> Task :launcher:jar
+
+> Task :client:compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :client:processResources
+> Task :client:classes
+> Task :client:jar
+> Task :client:processIncludeJars
+> Task :client:compileTestJava NO-SOURCE
+> Task :client:processTestResources NO-SOURCE
+> Task :client:testClasses UP-TO-DATE
+> Task :client:test NO-SOURCE
+> Task :client:validateAccessWidener NO-SOURCE
+> Task :client:check UP-TO-DATE
+> Task :client:remapJar
+> Task :client:remapSourcesJar SKIPPED
+> Task :client:assemble
+> Task :client:build
+
+BUILD SUCCESSFUL in 47s
+7 actionable tasks: 7 executed
