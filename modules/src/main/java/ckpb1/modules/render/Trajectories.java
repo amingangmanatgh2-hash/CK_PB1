@@ -86,7 +86,7 @@ public final class Trajectories extends Module {
         Vec3d vel = shot.velocity;
         List<Vec3d> points = new ArrayList<>();
         points.add(pos);
-        BlockPos.Mutable landing = null;
+        BlockPos landing = null;
 
         for (int step = 0; step < 300; step++) {
             vel = new Vec3d(vel.x * shot.drag, vel.y * shot.drag - shot.gravity, vel.z * shot.drag);
@@ -96,7 +96,7 @@ public final class Trajectories extends Module {
                     RaycastContext.ShapeType.COLLIDER, RaycastContext.FluidHandling.NONE, mc.player));
             if (hit.getType() == HitResult.Type.BLOCK) {
                 points.add(hit.getPos());
-                landing = hit.getBlockPos().toMutable();
+                landing = hit.getBlockPos();
                 break;
             }
             pos = next;

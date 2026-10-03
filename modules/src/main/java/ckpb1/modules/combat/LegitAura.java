@@ -78,7 +78,7 @@ public final class LegitAura extends Module {
         // sample eyes/chest/feet so partially exposed targets still count
         Vec3d[] points = {
                 center,
-                new Vec3d(box.minX, box.minY + box.getLengthY() * 0.15, box.minZ).add(
+                new Vec3d(box.minX, box.minY + (box.maxY - box.minY) * 0.15, box.minZ).add(
                         (box.maxX - box.minX) / 2, 0, (box.maxZ - box.minZ) / 2)
         };
         for (Vec3d to : points) {
@@ -145,7 +145,7 @@ public final class LegitAura extends Module {
                 long now = System.currentTimeMillis();
                 if (now >= switchAllowedAt) {
                     currentTarget = best;
-                    switchAllowedAt = now + (long) switchDelay.get();
+                    switchAllowedAt = now + switchDelay.get().longValue();
                 }
             }
         }

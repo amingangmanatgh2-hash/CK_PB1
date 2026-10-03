@@ -17,6 +17,7 @@ import ckpb1.client.hud.elements.CoordinatesElement;
 import ckpb1.client.hud.elements.CpsElement;
 import ckpb1.client.hud.elements.FpsElement;
 import ckpb1.client.hud.elements.KeystrokesElement;
+import ckpb1.client.hud.elements.ModuleListElement;
 import ckpb1.client.hud.elements.PingElement;
 import ckpb1.client.hud.elements.PotionStatusElement;
 import ckpb1.client.hud.elements.SessionElement;

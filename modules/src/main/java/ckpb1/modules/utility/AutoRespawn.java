@@ -34,7 +34,7 @@ public final class AutoRespawn extends Module {
             }
             if (System.currentTimeMillis() - diedAt >= delay.get().longValue()) {
                 mc.player.networkHandler.sendPacket(new ClientCommandC2SPacket(
-                        mc.player, ClientCommandC2SPacket.Mode.PERFORM_RESPAWN));
+                        mc.player, ClientCommandC2SPacket.Mode.STOP_SLEEPING));
                 diedAt = 0;
             }
         } else {
