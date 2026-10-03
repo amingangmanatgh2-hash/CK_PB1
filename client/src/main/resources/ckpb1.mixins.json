@@ -11,7 +11,10 @@
     "ClientPlayerInteractionManagerMixin",
     "ClientPlayNetworkHandlerMixin",
     "EntityMixin",
-    "WorldRendererMixin"
+    "WorldRendererMixin",
+    "ClientPlayerEntityMixin",
+    "MinecraftClientAccessor",
+    "ChatHudMixin"
   ],
   "injectors": {
     "defaultRequire": 1

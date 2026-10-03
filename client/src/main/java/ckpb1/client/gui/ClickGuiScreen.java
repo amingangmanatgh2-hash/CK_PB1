@@ -127,15 +127,45 @@ public final class ClickGuiScreen extends Screen {
 
     // ---------------------------------------------------------------- render
 
+    /** Accent color per category (used for panel headers and strips). */
+    private static int categoryColor(Category c) {
+        return switch (c) {
+            case COMBAT -> 0xFFFF6E6E;
+            case MOVEMENT -> 0xFF55DD88;
+            case PLAYER -> 0xFFFFC860;
+            case RENDER -> 0xFFB48EFF;
+            case WORLD -> 0xFF9050FF;
+            case UTILITY -> 0xFF40C8FF;
+            case BEDWARS -> 0xFFFF9055;
+            case AUTOMATION -> 0xFFFF7AB8;
+            case HUD -> 0xFF7FE8D8;
+        };
+    }
+
+    private int enabledCount() {
+        int n = 0;
+        for (Module m : CKPB1Client.modules().all()) {
+            if (m.isEnabled()) {
+                n++;
+            }
+        }
+        return n;
+    }
+
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         MinecraftClient mc = MinecraftClient.getInstance();
-        context.fill(0, 0, width, height, 0x50101018);
+        context.fill(0, 0, width, height, 0x60101018);
 
-        // header bar
-        context.fill(0, 0, width, 24, 0xC8161622);
-        context.drawTextWithShadow(mc.textRenderer, "§bCK_PB1 §f" + ckpb1.common.CKPB1.VERSION
-                + " §7| profile: §f" + CKPB1Client.modules().activeProfile(), 8, 8, 0xFFFFFF);
+        // header bar with gradient
+        context.fillGradient(0, 0, width, 24, 0xF01A2438, 0xF0101828);
+        context.fill(0, 24, width, 25, 0xFF40C8FF);
+        String profile = CKPB1Client.modules().activeProfile();
+        int on = enabledCount();
+        int total = CKPB1Client.modules().all().size();
+        context.drawTextWithShadow(mc.textRenderer, "§bCK_PB1 §f" + ckpb1.common.CKPB1.VERSION, 8, 4, 0xFFFFFF);
+        context.drawTextWithShadow(mc.textRenderer,
+                "§7profile §f" + profile + " §8| §7on §a" + on + "§8/§f" + total, 8, 14, 0xFFFFFF);
         // search box
         int sbX = width - 190;
         context.fill(sbX, 5, sbX + 130, 19, searchFocused ? 0xFF2A3A50 : 0xFF1E2430);
@@ -153,13 +183,16 @@ public final class ClickGuiScreen extends Screen {
             int contentH = panelContentHeight(panel);
             int maxH = height - panel.y - 8;
             int panelH = Math.min(contentH, Math.max(HEADER_H + ROW_H, maxH));
-            // panel background
+            // panel background + border
             context.fill(panel.x, panel.y, panel.x + PANEL_W, panel.y + panelH, 0xD0141420);
-            // header
+            context.drawBorder(panel.x, panel.y, PANEL_W, panelH, panel.open ? 0xFF2A3A50 : 0xFF202A3A);
+            // header with category accent strip
             boolean headerHover = inBox(mouseX, mouseY, panel.x, panel.y, PANEL_W, HEADER_H);
+            int accent = categoryColor(panel.category);
             context.fill(panel.x, panel.y, panel.x + PANEL_W, panel.y + HEADER_H,
-                    headerHover ? 0xFF274E78 : 0xFF1D344A);
-            context.drawTextWithShadow(mc.textRenderer, "§b" + panel.category.label, panel.x + 5, panel.y + 5, 0xFFFFFF);
+                    headerHover ? 0xFF243248 : 0xFF1A2638);
+            context.fill(panel.x, panel.y, panel.x + 3, panel.y + HEADER_H, accent);
+            context.drawTextWithShadow(mc.textRenderer, "§b" + panel.category.label, panel.x + 7, panel.y + 5, 0xFFFFFF);
             String count = modules.size() + (panel.open ? " -" : " +");
             context.drawTextWithShadow(mc.textRenderer, count, panel.x + PANEL_W - mc.textRenderer.getWidth(count) - 4, panel.y + 5, 0xFF9FB6CC);
             if (!panel.open) {
@@ -226,9 +259,29 @@ public final class ClickGuiScreen extends Screen {
         if (capturingKey != null) {
             String msg = "Press a key for '" + capturingKey.getName() + "' (ESC clears)";
             int w = mc.textRenderer.getWidth(msg);
-            context.fill(width / 2 - w / 2 - 6, height - 40, width / 2 + w / 2 + 6, height - 24, 0xF0101018);
-            context.drawTextWithShadow(mc.textRenderer, "§e" + msg, width / 2 - w / 2, height - 35, 0xFFFFFF);
+            context.fill(width / 2 - w / 2 - 6, height - 44, width / 2 + w / 2 + 6, height - 28, 0xF0101018);
+            context.drawBorder(width / 2 - w / 2 - 6, height - 44, w + 12, 16, 0xFF40506A);
+            context.drawTextWithShadow(mc.textRenderer, "§e" + msg, width / 2 - w / 2, height - 39, 0xFFFFFF);
         }
+
+        // bottom status bar
+        context.fillGradient(0, height - 16, width, height, 0xE0101828, 0xE01A2438);
+        String status;
+        if (capturingKey != null) {
+            status = "§ebind capture: " + capturingKey.getName();
+        } else if (hoveredModule != null) {
+            String bind = hoveredModule.getKeyCode() == GLFW.GLFW_KEY_UNKNOWN
+                    ? "none" : ModuleManager.keyName(hoveredModule.getKeyCode());
+            status = "§b" + hoveredModule.getName() + " §8| §7" + hoveredModule.getDescription()
+                    + " §8| §7bind: §f" + bind;
+            if (status.length() > 110) {
+                status = status.substring(0, 110) + "...";
+            }
+        } else {
+            status = "§7L-toggle §8| §7R-settings §8| §7M-bind §8| §7type to search §8| §7profile: §f"
+                    + CKPB1Client.modules().activeProfile();
+        }
+        context.drawTextWithShadow(mc.textRenderer, status, 8, height - 12, 0xFFFFFF);
     }
 
     @SuppressWarnings("unchecked")
@@ -543,6 +596,12 @@ public final class ClickGuiScreen extends Screen {
             if (chr >= 32) {
                 search.append(chr);
             }
+            return true;
+        }
+        // start searching as soon as the user types anything
+        if (activeList == null && capturingKey == null && chr >= 32) {
+            searchFocused = true;
+            search.append(chr);
             return true;
         }
         if (activeList != null) {

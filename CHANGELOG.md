@@ -1,5 +1,36 @@
 # CK_PB1 Changelog
 
+## v1.1.0 — 2026-10-03
+
+آپدیت بزرگ «قابلیت‌ها یک لول بالاتر» — ۱۲ ماژول جدید + ارتقای Fly و Bridge و منو.
+
+### جدید در v1.1.0
+* **Legit Aura** — کیل‌اورای لگیت سبک 1.8.9: روتیشن نرم با Jitter، CPS گاوسی، FOV، Wall Check،
+  دروازه‌ی سوئینگ فقط وقتی کراس‌هیر روی هدف است، تأخیر سوئیچ هدف و Micro-Pause انسانی
+* **Scaffold** — گذاشتن خودکار بلوک زیر پا هنگام دویدن (Normal/Tower)، Auto Slot و Keep Rotation
+* **God Bridge (0 CPS)** — حالت جدید Bridge Assistant: بریج خودکار با سرعت کامل بدون حتی یک کلیک
+* **Fly سه‌حالته** — Creative (کلاسیک)، Jetpack (سرعتی نرم بدون دست‌زدن به Abilities)،
+  Glide (سرنشین نرم) + Anti-Kick برای چک‌های Floating ونیلا
+* **ESP** — هایلایت Players / Mobs / Items / Chests با رنگ‌های جدا (اسکن تخت‌ها کش می‌شود)
+* **Tracers** — خط از چشم تا بازیکنان/ماب‌ها
+* **Trajectories** — پیش‌بینی مسیر پرتابه (Bow, Snowball, Egg, Ender Pearl, Potion, XP Bottle) + نشانگر فرود
+* **Chat Translator** — ترجمه خودکار پیام‌های چت با گوگل (fa/en/ar/tr/fr/de/ru/es)
+* **Anti AFK** — حرکات کوچک تصادفی (Rotate/Sneak/Mixed) برای نرفتن AFK
+* **Auto Respawn** — ریسپان خودکار بعد از مرگ با تأخیر قابل‌تنظیم
+* **No Slow** — حذف کندی حرکت هنگام خوردن/استفاده آیتم (mixin)
+* **Fast Place** — حذف تأخیر ۴ تیکی ونیلا بین قرار دادن بلوک‌ها
+* **Spider** — بالا رفتن از دیوارها مثل عنکبوت
+* **Auto Sprint** — اسپرینت خودکار هنگام حرکت به جلو
+* **Module List HUD** — لیست Array جدید با گرادیان رنگی
+* **منوی جدید** — گرادیان، نوار وضعیت پایین، رنگ اختصاصی هر دسته، شمارنده‌ی ماژول‌های فعال،
+  تایپ = جستجوی فوری، کپچر کی‌بیند با کادر مخصوص
+
+### رفع اشکال
+* رفع ۴۹ خطای کامپایل نسخه قبل (ColorHelper, RaycastContext, EntityHitResult, ...)
+* رفع باگ Parse کردن Manifest ماینکرفت (کلید versions)
+* رفع NSIS روی لینوکس (مسیرهای OutFile)
+
+
 ## v1.0.0 — 2026-09-29
 
 اولین نسخه رسمی CK_PB1.

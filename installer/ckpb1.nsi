@@ -16,7 +16,7 @@ Unicode true
 !include "LogicLib.nsh"
 
 !define APP_NAME "CK_PB1"
-!define APP_VERSION "1.0.0"
+!define APP_VERSION "1.1.0"
 !define APP_PUBLISHER "CK_PB1"
 !define APP_URL "https://github.com/amingangmanatgh2-hash/CK_PB1"
 !define APP_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\CK_PB1"

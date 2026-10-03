@@ -42,7 +42,7 @@ jobs:
       - name: Launcher self-test (Mojang / Fabric / GitHub network checks)
         run: |
           set -o pipefail
-          java -jar launcher/build/libs/CK_PB1-Launcher-1.0.0.jar --selftest 2>&1 | tee selftest.log
+          java -jar launcher/build/libs/CK_PB1-Launcher-*.jar --selftest 2>&1 | tee selftest.log
 
       - name: Build CK_PB1_Setup.exe (installer)
         run: |

@@ -77,6 +77,7 @@ public final class CKPB1Client implements ClientModInitializer {
         ckpb1.modules.combat.TargetSelector targetSelector = new ckpb1.modules.combat.TargetSelector();
         modules.register(targetSelector);
         modules.register(new ckpb1.modules.combat.CombatAssistant(targetSelector));
+        modules.register(new ckpb1.modules.combat.LegitAura());
         modules.register(new ckpb1.modules.combat.KillFarm());
         ckpb1.modules.combat.KillFarm killFarm =
                 (ckpb1.modules.combat.KillFarm) modules.byName("Kill Farm");
@@ -91,10 +92,16 @@ public final class CKPB1Client implements ClientModInitializer {
         // ---- Render -----------------------------------------------------
         modules.register(new ckpb1.modules.render.CrosshairModule());
         modules.register(new ckpb1.modules.render.Fullbright());
+        modules.register(new ckpb1.modules.render.Esp());
+        modules.register(new ckpb1.modules.render.Tracers());
+        modules.register(new ckpb1.modules.render.Trajectories());
 
         // ---- Movement ---------------------------------------------------
         modules.register(new ckpb1.modules.movement.MovementAssistant());
         modules.register(new ckpb1.modules.movement.Fly());
+        modules.register(new ckpb1.modules.movement.Scaffold());
+        modules.register(new ckpb1.modules.movement.Spider());
+        modules.register(new ckpb1.modules.movement.AutoSprint());
 
         // ---- Player (singleplayer / test only) --------------------------
         modules.register(new ckpb1.modules.player.InfiniteHealth());
@@ -110,6 +117,11 @@ public final class CKPB1Client implements ClientModInitializer {
         // ---- Utility ----------------------------------------------------
         modules.register(new ckpb1.modules.util.AutoClicker());
         modules.register(new ckpb1.modules.util.AutoTool());
+        modules.register(new ckpb1.modules.utility.AntiAfk());
+        modules.register(new ckpb1.modules.utility.AutoRespawn());
+        modules.register(new ckpb1.modules.utility.NoSlow());
+        modules.register(new ckpb1.modules.utility.FastPlace());
+        modules.register(new ckpb1.modules.utility.ChatTranslator());
 
         // ---- BedWars ----------------------------------------------------
         modules.register(new ckpb1.modules.bedwars.BedDestroyerV1());
@@ -123,6 +135,7 @@ public final class CKPB1Client implements ClientModInitializer {
 
         // ---- HUD elements -----------------------------------------------
         hud.register(new WatermarkElement());
+        hud.register(new ModuleListElement());
         hud.register(new FpsElement());
         hud.register(new PingElement());
         hud.register(new CpsElement());

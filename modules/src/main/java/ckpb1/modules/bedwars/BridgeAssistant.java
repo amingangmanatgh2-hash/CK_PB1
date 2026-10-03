@@ -31,7 +31,7 @@ import java.util.List;
 public final class BridgeAssistant extends Module {
 
     public final ModeSetting mode = add(new ModeSetting("Bridge Type",
-            "Bridging style", "God Bridge", "Breezily", "Ninja"));
+            "Bridging style", "God Bridge (0 CPS)", "God Bridge", "Breezily", "Ninja"));
     public final NumberSetting placeDelay = add(new NumberSetting("Place Delay",
             "Ticks between placement attempts", 3, 1, 10, 1, "t"));
     public final NumberSetting speed = add(new NumberSetting("Walk Speed",
@@ -118,7 +118,8 @@ public final class BridgeAssistant extends Module {
         boolean supported = !mc.world.getBlockState(underFeet).getCollisionShape(mc.world, underFeet).isEmpty();
 
         // movement input: walk backwards (bridging direction), sneak in safe modes
-        if (pauseTicks > 0) {
+        boolean zeroCps = mode.is("God Bridge (0 CPS)");
+        if (pauseTicks > 0 && !zeroCps) {
             pauseTicks--;
             player.input.movementForward = 0;
             player.input.sneaking = true;
@@ -134,15 +135,16 @@ public final class BridgeAssistant extends Module {
                 player.input.sneaking = true;
                 player.input.movementSideways = 0;
             }
-            default -> { // God Bridge: no sneak, timing pause keeps you on the edge
+            default -> { // God Bridge & God Bridge (0 CPS): no sneak, full speed
                 player.input.sneaking = false;
                 player.input.movementSideways = 0;
             }
         }
 
         // place blocks
+        int effectiveDelay = zeroCps ? Math.max(1, placeDelay.getInt() - 1) : placeDelay.getInt();
         if (--placeTimer <= 0 && gapIsAir && supported) {
-            placeTimer = placeDelay.getInt();
+            placeTimer = effectiveDelay;
             // place against the block under our feet, on the face towards the gap
             Vec3d hitVec = Vec3d.ofCenter(underFeet).add(travel.getVector().getX() * 0.5,
                     0, travel.getVector().getZ() * 0.5);
@@ -153,6 +155,8 @@ public final class BridgeAssistant extends Module {
                 if (mode.is("God Bridge")) {
                     pauseTicks = 2; // brief stop so the new block catches us
                 }
+                // God Bridge (0 CPS): no pause at all - blocks are placed at
+                // full walking speed without a single click from the player
             }
         }
 

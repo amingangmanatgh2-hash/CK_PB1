@@ -9,7 +9,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT/installer"
-APP_VERSION="${CKPB1_VERSION:-1.0.0}"
+APP_VERSION="${CKPB1_VERSION:-1.1.0}"
 
 echo "== CK_PB1 installer build (v${APP_VERSION}) =="
 

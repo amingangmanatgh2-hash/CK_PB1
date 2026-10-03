@@ -78,15 +78,15 @@ Launcher در اولین اجرا Minecraft 1.20.1 (فایل‌های رسمی M
 
 | دسته | ماژول‌ها |
 | --- | --- |
-| **Combat** | Combat Assistant, Target Selector, **Kill Farm**, CPS Counter, Reach Display, Hit Information, Combo Information, Projectile Information, Auto Fireball Defense |
-| **Movement** | Movement Assistant, Fly |
+| **Combat** | **Legit Aura** (کیل‌اورای لگیت 1.8.9), Combat Assistant, Target Selector, **Kill Farm**, CPS Counter, Reach Display, Hit Information, Combo Information, Projectile Information, Auto Fireball Defense |
+| **Movement** | **Scaffold**, Fly (Creative/Jetpack/Glide + Anti-Kick), **Spider**, **Auto Sprint**, Movement Assistant |
 | **Player** (تست) | Infinite Health, No Fall Damage, Fire Resistance, Teleport |
-| **Render** | Crosshair, Fullbright |
+| **Render** | **ESP**, **Tracers**, **Trajectories**, Crosshair, Fullbright |
 | **World** | Resource Assistant |
-| **Utility** | Auto Clicker, Auto Tool |
-| **BedWars** | Bed Destroyer V1, **Bed Destroyer V2**, Bridge Assistant |
+| **Utility** | **Chat Translator**, **Anti AFK**, **Auto Respawn**, **No Slow**, **Fast Place**, Auto Clicker, Auto Tool |
+| **BedWars** | Bed Destroyer V1, **Bed Destroyer V2**, Bridge Assistant (**God Bridge 0 CPS**, Breezily, Ninja) |
 | **Automation** | BedWars Automation |
-| **HUD** | Watermark, FPS, Ping, CPS, Coordinates, Keystrokes, Armor Status, Potion Status, Target HUD, Session Info, BedWars Status |
+| **HUD** | **Module List** (Array List), Watermark, FPS, Ping, CPS, Coordinates, Keystrokes, Armor Status, Potion Status, Target HUD, Session Info, BedWars Status |
 
 ### Kill Farm (توضیح کامل)
 
