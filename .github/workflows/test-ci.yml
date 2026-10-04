@@ -1,0 +1,12 @@
+name: CI Test
+on:
+  push:
+    branches: ['arena/**']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "actions-ok java=$(java -version 2>&1 | head -1) nsis=$(which makensis || echo none) gradle=$(which gradle || echo none)"
+      - run: curl -sI https://services.gradle.org/distributions/gradle-8.10.2-bin.zip | head -1
+      - run: curl -sI https://maven.fabricmc.net/ | head -1
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq nsis >/dev/null 2>&1; which makensis; makensis -VERSION

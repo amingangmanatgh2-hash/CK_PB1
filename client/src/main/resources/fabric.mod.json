@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "ckpb1",
+  "version": "${version}",
+  "name": "CK_PB1",
+  "description": "CK_PB1 - a private Minecraft Java client for singleplayer and private test servers. Modules, HUD, profiles and BedWars test tooling.",
+  "authors": [
+    "CK_PB1"
+  ],
+  "contact": {
+    "homepage": "https://github.com/amingangmanatgh2-hash/CK_PB1",
+    "sources": "https://github.com/amingangmanatgh2-hash/CK_PB1"
+  },
+  "license": "MIT",
+  "icon": "assets/ckpb1/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ckpb1.client.CKPB1Client"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "ckpb1.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.20.1",
+    "java": ">=17"
+  }
+}
