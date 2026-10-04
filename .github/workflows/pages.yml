@@ -1,8 +1,8 @@
-name: Enable CK_PB1 Pages
+name: Publish CK_PB1 Pages
 
-# Activates the public GitHub Pages site for the repository (served from the
-# Main branch root) so the Google Search Console verification file and the
-# project docs are reachable at https://<owner>.github.io/CK_PB1/.
+# Publishes the public GitHub Pages site (site content = the Main branch) so
+# the Google Search Console verification file and the project docs are served
+# at https://<owner>.github.io/CK_PB1/.
 on:
   push:
     branches: ['Main', 'arena/**']
@@ -10,45 +10,37 @@ on:
 
 permissions:
   pages: write
-  contents: write
+  contents: read
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  enable-pages:
-    name: Enable GitHub Pages (from Main)
+  deploy-pages:
+    name: Build & deploy the Pages site
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Create or update the Pages site
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          {
-            set -x
-            # Create the site (ignore 409 = already exists)
-            gh api "repos/$GITHUB_REPOSITORY/pages" -X POST --input - <<'EOF' || true
-          {"source":{"branch":"Main","path":"/"}}
-          EOF
-            # Make sure it serves from the Main branch root
-            gh api "repos/$GITHUB_REPOSITORY/pages" -X PATCH --input - <<'EOF' || true
-          {"source":{"branch":"Main","path":"/"}}
-          EOF
-            # Show the resulting status
-            gh api "repos/$GITHUB_REPOSITORY/pages" --jq '{status, url, source}' || true
-          } > pages-enable.log 2>&1
-          cat pages-enable.log
+      - name: Checkout Main (site content)
+        uses: actions/checkout@v4
+        with:
+          ref: Main
 
-      - name: Publish log to build branch
-        if: always()
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          mkdir -p buildout
-          cp pages-enable.log buildout/ 2>/dev/null || echo "(no log)" > buildout/pages-enable.log
-          cd buildout
-          git init -q
-          git config user.name "CK_PB1 CI"
-          git config user.email "ci@ckpb1.local"
-          git checkout -q -b build/arena-tmp
-          git add -A
-          git commit -qm "pages-enable log ($GITHUB_SHA)"
-          git push -qf "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
-            "HEAD:refs/heads/build/pages"
+      - name: Configure (and enable) GitHub Pages
+        id: config
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
