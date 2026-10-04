@@ -1,0 +1,44 @@
+Downloading https://services.gradle.org/distributions/gradle-8.10.2-bin.zip
+.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
+
+Welcome to Gradle 8.10.2!
+
+Here are the highlights of this release:
+ - Support for Java 23
+ - Faster configuration cache
+ - Better configuration cache reports
+
+For more details see https://docs.gradle.org/8.10.2/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.10.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :client
+Fabric Loom: 1.7.4
+
+> Task :launcher:compileJava
+> Task :launcher:processResources NO-SOURCE
+> Task :launcher:classes
+> Task :launcher:jar
+
+> Task :client:compileJava
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :client:processResources
+> Task :client:classes
+> Task :client:jar
+> Task :client:processIncludeJars
+> Task :client:compileTestJava NO-SOURCE
+> Task :client:processTestResources NO-SOURCE
+> Task :client:testClasses UP-TO-DATE
+> Task :client:test NO-SOURCE
+> Task :client:validateAccessWidener NO-SOURCE
+> Task :client:check UP-TO-DATE
+> Task :client:remapJar
+> Task :client:remapSourcesJar SKIPPED
+> Task :client:assemble
+> Task :client:build
+
+BUILD SUCCESSFUL in 48s
+7 actionable tasks: 7 executed
