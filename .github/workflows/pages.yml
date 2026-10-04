@@ -3,6 +3,13 @@ name: Publish CK_PB1 Pages
 # Publishes the public GitHub Pages site (site content = the Main branch) so
 # the Google Search Console verification file and the project docs are served
 # at https://<owner>.github.io/CK_PB1/.
+#
+# NOTE: the very first "Pages enablement" must be done once by the repository
+# owner (Settings -> Pages) - GitHub does not allow any integration token to
+# create a Pages site. After that this workflow keeps the site up to date
+# when the site source is set to "GitHub Actions". If the owner picks
+# "Deploy from a branch (Main)" instead, GitHub serves the site directly and
+# this workflow skips itself gracefully.
 on:
   push:
     branches: ['Main', 'arena/**']
@@ -25,22 +32,39 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Check the Pages site configuration
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TYPE=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.source.type' 2>/dev/null || echo "none")
+          echo "Pages source type: $TYPE"
+          echo "type=$TYPE" >> "$GITHUB_OUTPUT"
+
       - name: Checkout Main (site content)
+        if: steps.check.outputs.type == 'workflow'
         uses: actions/checkout@v4
         with:
           ref: Main
 
-      - name: Configure (and enable) GitHub Pages
+      - name: Configure GitHub Pages
+        if: steps.check.outputs.type == 'workflow'
         id: config
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Upload site artifact
+        if: steps.check.outputs.type == 'workflow'
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
 
       - name: Deploy to GitHub Pages
+        if: steps.check.outputs.type == 'workflow'
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Site is branch-served (nothing to do)
+        if: steps.check.outputs.type != 'workflow'
+        run: |
+          echo "Pages is served directly from a branch - this workflow skips itself."
+          echo "The site is live at https://amingangmanatgh2-hash.github.io/CK_PB1/"
