@@ -1,0 +1,34 @@
+name: Enable CK_PB1 Pages
+
+# Activates the public GitHub Pages site for the repository (served from the
+# Main branch root) so the Google Search Console verification file and the
+# project docs are reachable at https://<owner>.github.io/CK_PB1/.
+on:
+  push:
+    branches: ['Main', 'arena/**']
+  workflow_dispatch:
+
+permissions:
+  pages: write
+  contents: read
+
+jobs:
+  enable-pages:
+    name: Enable GitHub Pages (from Main)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create or update the Pages site
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -x
+          # Create the site (ignore 409 = already exists)
+          gh api "repos/$GITHUB_REPOSITORY/pages" -X POST --input - <<'EOF' || true
+          {"source":{"branch":"Main","path":"/"}}
+          EOF
+          # Make sure it serves from the Main branch root
+          gh api "repos/$GITHUB_REPOSITORY/pages" -X PATCH --input - <<'EOF' || true
+          {"source":{"branch":"Main","path":"/"}}
+          EOF
+          # Show the resulting status
+          gh api "repos/$GITHUB_REPOSITORY/pages" --jq '{status, url, source}'
